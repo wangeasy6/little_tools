@@ -23,7 +23,6 @@ if os.access("time.bak", os.R_OK):
       time_bak = time_bak_fd.read()
       time_bak_ini = int(time_bak)
       white_noise_time -= time_bak_ini
-      pink_noise_time -= time_bak_ini
 #print('time_bak: ',time_bak_ini)
 
 init_time = time.time()
