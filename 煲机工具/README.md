@@ -11,4 +11,13 @@
 ### 环境搭建和运行
 1、安装 python， 勾选添加环境变量(python 3.6版本 + Windows)
 2、pip install pygame
-3、运行， python Burning_Tool.py
+3、运行： python Burning_Tool.py
+4、退出运行：Ctrl + C
+
+### 配置
+* playing_time      是播放的单位时间
+* pause_time        是停止的时间
+* white_noise_time  是白噪声播放的时长
+* pink_noise_time   是粉噪声播放的时长
+* TEST              是为了配置上面4个参数而设置的一个测试控制变量，为 1 的时候，则使用测试参数
+* UPDATE_FOLDER     为 1 则开启实时更新文件夹中的歌曲

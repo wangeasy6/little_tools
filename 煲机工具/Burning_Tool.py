@@ -5,7 +5,9 @@ import random
 import time
 import datetime
 
+UPDATE_FOLDER = 1
 TEST = 0
+
 if TEST == 1:
       playing_time = 5
       pause_time = 2
@@ -25,8 +27,6 @@ if os.access("time.bak", os.R_OK):
       white_noise_time -= time_bak_ini
 #print('time_bak: ',time_bak_ini)
 
-init_time = time.time()
-
 material_folder = 'material'
 white_noise_folder = material_folder + '\\White_Noise\\'
 pink_noise_folder = material_folder + '\\Pink_Noise\\'
@@ -42,36 +42,44 @@ white_noise_i = 0
 pink_noise_i = 0
 music_i = 0
 
+init_time = time.time()
 start_time = time.time()
 pygame.mixer.init()
 while True:
       if not pygame.mixer.music.get_busy():
+            if UPDATE_FOLDER == 1:
+                  white_noise_list = os.listdir(white_noise_folder)
+                  if white_noise_i >= len(white_noise_list):
+                        white_noise_i = 0;
+                  pink_noise_list = os.listdir(pink_noise_folder)
+                  if white_noise_i >= len(white_noise_list):
+                        white_noise_i = 0;
+                  music_list = os.listdir(music_folder)
+                  if white_noise_i >= len(white_noise_list):
+                        white_noise_i = 0;
             all_time = time.time() - init_time
             if all_time < white_noise_time :
                   if len(white_noise_list) < 1:
                         break
-                  if white_noise_i < (len(white_noise_list) - 1):
-                        white_noise_i += 1
-                  else:
-                        white_noise_i = 0
                   playMusic = white_noise_folder + white_noise_list[white_noise_i]
+                  white_noise_i += 1
+                  if white_noise_i >= len(white_noise_list):
+                        white_noise_i = 0
             else:
                   if all_time < (white_noise_time + pink_noise_time):
                         if len(pink_noise_list) < 1:
                               break
-                        if pink_noise_i < (len(pink_noise_list) - 1):
-                              pink_noise_i += 1
-                        else:
-                              pink_noise_i = 0
                         playMusic = pink_noise_folder + pink_noise_list[pink_noise_i]
+                        pink_noise_i += 1
+                        if pink_noise_i >= len(pink_noise_list):
+                              pink_noise_i = 0
                   else:
                         if len(music_list) < 1:
                               break
-                        if music_i < (len(music_list) - 1):
-                              music_i += 1
-                        else:
-                              music_i = 0
                         playMusic = music_folder + music_list[music_i]
+                        music_i += 1
+                        if music_i >= len(music_list):
+                              music_i = 0
             pygame.mixer.music.load(playMusic)
             pygame.mixer.music.play()
             print('playing...',playMusic)
